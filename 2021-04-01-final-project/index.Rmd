@@ -1,0 +1,143 @@
+
+# Reading the data
+I added libraries and processed the data
+```{r}
+library(tidyverse)
+library(ggplot2)
+library(waffle)
+
+volleyballstats <- read_csv("volleyballgamelogs2020.csv")
+
+
+volleyballstats %>% filter(is.na(Result) == FALSE) %>% tally()
+volleyballstats %>% filter(is.na(Result) == FALSE) %>%  filter(is.na(Kills) | is.na(Aces) | is.na("Block Solos"))
+```
+
+
+# D1 Teams
+Only looking at games that were played
+```{r}
+AllD1Games <- volleyballstats %>%filter(is.na(Result) == FALSE)
+
+AllD1Teams <- AllD1Games %>% group_by(Team) %>%
+  summarise(
+    total = n(),
+    totalKills = sum(Kills),
+    TotalAttacks = sum(`Total Attacks`),
+    maxKillRate = max(Kills / S),
+    aveKillRate = sum(Kills) / sum(`Total Attacks`)
+  )
+```
+
+```{r}
+ggplot(AllD1Teams, aes(x=TotalAttacks, y=totalKills)) +
+  geom_point() + 
+  geom_smooth(method="lm") +
+  theme_light() +
+  labs(x="Total Attacks", y="Total Kills")
+  
+```
+
+
+```{r}
+AllD1Teams %>% filter(TotalAttacks > 2500) %>% arrange(desc(TotalAttacks))
+
+AllD1Teams %>% arrange(desc(aveKillRate))
+```
+
+```{r}
+top25TeamNames <- read.csv("top25-teams.csv")
+
+Top25TeamGames <- AllD1Games %>% filter(Team %in% top25TeamNames$Team)
+
+Top25TeamGames <- Top25TeamGames %>% replace_na(list(Aces=0))
+
+Top25Teams <- Top25TeamGames %>% group_by(Team) %>%
+  summarise(
+    total = n(),
+    totalAces = sum(Aces),
+    Totalserviceerrors = sum(`SErr`),
+    totalAcesErrorRate = sum(Aces) / sum(SErr)
+  )
+```
+
+```{r}
+ggplot(Top25Teams, aes(x=reorder(Team,totalAces), weight=totalAces)) +
+  geom_bar() + 
+  theme_light() +
+  labs(x="Total team", y="Total Aces") + 
+  coord_flip()
+  
+```
+```{r}
+top5TeamNames <- read.csv("top5-teams.csv")
+
+Top5TeamGames <- AllD1Games %>% filter(Team %in% top5TeamNames$Team)
+ 
+Top5TeamGames <- Top5TeamGames %>% replace_na(list(`Block Solos`=0))
+
+Top5Teams <- Top5TeamGames %>% group_by(Team) %>%
+  summarise(
+    totalblocksolos = sum(`Block Solos`),
+    totalblockassists = sum(`Block Assists`)
+  )
+```
+
+Prepping for waffle plot
+```{r}
+wis <- Top5Teams %>% filter(Team == "Wisconsin Badgers")
+ken <- Top5Teams %>% filter(Team == "Kentucky Wildcats")
+minn <- Top5Teams %>% filter(Team == "Minnesota Golden Gophers")
+neb <- Top5Teams %>% filter(Team == "Nebraska Cornhuskers")
+tex <- Top5Teams %>% filter(Team == "Texas Longhorns")
+
+
+WisWaffle <- c("Block Solos"=wis$totalblocksolos, "Block Assists"=wis$totalblockassists)
+KenWaffle <- c("Block Solos"=ken$totalblocksolos, "Block Assists"=ken$totalblockassists)
+MinWaffle <- c("Block Solos"=minn$totalblocksolos, "Block Assists"=minn$totalblockassists)
+NebWaffle <- c("Block Solos"=neb$totalblocksolos, "Block Assists"=neb$totalblockassists)
+TexWaffle <- c("Block Solos"=tex$totalblocksolos, "Block Assists"=tex$totalblockassists)
+```
+
+```{r wafflePlot, echo=TRUE}
+iron(
+waffle(
+        WisWaffle / 5, 
+        rows = 2, 
+        title="Wisconsin's Blocks", 
+        xlab="1 square = 5 blaock", 
+        colors = c("grey", "red")
+),
+waffle(
+        KenWaffle / 5, 
+        rows = 2, 
+        title="Kentucky's Blocks", 
+        xlab="1 square = 1 blaock", 
+        colors = c("black", "blue")
+),
+waffle(
+        MinWaffle / 5, 
+        rows = 2, 
+        title="Minnesota's Blocks", 
+        xlab="1 square = 1 blaock", 
+        colors = c("black", "purple")
+),
+waffle(
+        TexWaffle / 10, 
+        rows = 2, 
+        title="Texas's Blocks", 
+        xlab="1 square = 10 blaock", 
+        colors = c("black", "orange")
+),
+waffle(
+        NebWaffle / 5, 
+        rows = 2, 
+        title="Nebraska's Blocks", 
+        xlab="1 square = 1 blaock", 
+        colors = c("black", "red")
+)
+)
+```
+
+
+
