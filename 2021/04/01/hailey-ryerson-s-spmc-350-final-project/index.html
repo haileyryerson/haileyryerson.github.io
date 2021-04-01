@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Hugo 0.81.0" />
+
+
+<title>Hailey Ryerson&#39;s SPMC 350 Final Project - Hailey Ryerson&#39;s Github Site</title>
+<meta property="og:title" content="Hailey Ryerson&#39;s SPMC 350 Final Project - Hailey Ryerson&#39;s Github Site">
+
+
+  <link href='http://haileyryerson.github.io/favicon.ico' rel='icon' type='image/x-icon'/>
+
+
+
+  
+
+
+
+
+
+
+
+
+<link href='//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css' rel='stylesheet' type='text/css' />
+
+
+
+<link rel="stylesheet" href="/css/fonts.css" media="all">
+<link rel="stylesheet" href="/css/main.css" media="all">
+
+
+
+  </head>
+  <body>
+    <div class="wrapper">
+      <header class="header">
+        <nav class="nav">
+  <a href="/" class="nav-logo">
+    <img src="/images/logo.png"
+         width="50"
+         height="50"
+         alt="Logo">
+  </a>
+
+  <ul class="nav-links">
+    
+    <li><a href="/about/">About</a></li>
+    
+    <li><a href="https://github.com/haileyryerson">GitHub</a></li>
+    
+    <li><a href="https://twitter.com/HaileyRyerson">Twitter</a></li>
+    
+  </ul>
+</nav>
+
+      </header>
+
+
+<main class="content" role="main">
+
+  <article class="article">
+    
+    <span class="article-duration">5 min read</span>
+    
+
+    <h1 class="article-title">Hailey Ryerson&#39;s SPMC 350 Final Project</h1>
+
+    
+    <span class="article-date">2021-04-01</span>
+    
+
+    <div class="article-content">
+      
+<script src="http://haileyryerson.github.io/2021/04/01/hailey-ryerson-s-spmc-350-final-project/index_files/header-attrs/header-attrs.js"></script>
+
+
+<pre class="r"><code>library(tidyverse)</code></pre>
+<pre><code>## ── Attaching packages ─────────────────────────────────────── tidyverse 1.3.0 ──</code></pre>
+<pre><code>## ✓ ggplot2 3.3.3     ✓ purrr   0.3.4
+## ✓ tibble  3.0.5     ✓ dplyr   1.0.3
+## ✓ tidyr   1.1.2     ✓ stringr 1.4.0
+## ✓ readr   1.4.0     ✓ forcats 0.5.0</code></pre>
+<pre><code>## ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+## x dplyr::filter() masks stats::filter()
+## x dplyr::lag()    masks stats::lag()</code></pre>
+<pre class="r"><code>library(ggplot2)
+library(waffle)
+
+volleyballstats &lt;- read_csv(&quot;volleyballgamelogs2020.csv&quot;)</code></pre>
+<pre><code>## 
+## ── Column specification ────────────────────────────────────────────────────────
+## cols(
+##   .default = col_double(),
+##   Date = col_date(format = &quot;&quot;),
+##   Team = col_character(),
+##   Opponent = col_character(),
+##   HomeAway = col_character(),
+##   Result = col_character(),
+##   MS = col_logical()
+## )
+## ℹ Use `spec()` for the full column specifications.</code></pre>
+<pre class="r"><code>volleyballstats %&gt;% filter(is.na(Result) == FALSE) %&gt;% tally()</code></pre>
+<pre><code>## # A tibble: 1 x 1
+##       n
+##   &lt;int&gt;
+## 1  3561</code></pre>
+<pre class="r"><code>volleyballstats %&gt;% filter(is.na(Result) == FALSE) %&gt;%  filter(is.na(Kills) | is.na(Aces) | is.na(&quot;Block Solos&quot;))</code></pre>
+<pre><code>## # A tibble: 81 x 23
+##    Date       Team  Opponent HomeAway Result VisitorScore HomeScore     S MS   
+##    &lt;date&gt;     &lt;chr&gt; &lt;chr&gt;    &lt;chr&gt;    &lt;chr&gt;         &lt;dbl&gt;     &lt;dbl&gt; &lt;dbl&gt; &lt;lgl&gt;
+##  1 2021-02-11 Akro… Kent St. Away     Loss              1         3     4 NA   
+##  2 2020-10-31 Alab… Florida  Away     Loss              0         3     3 NA   
+##  3 2021-03-02 Alco… Ark.-Pi… Away     Loss              0         3     3 NA   
+##  4 2020-10-24 App … Georgia… Home     Loss              1         3     4 NA   
+##  5 2020-11-12 App … Coastal… Away     Loss              0         3     3 NA   
+##  6 2021-03-05 Arka… Florida  Away     Loss              0         3     3 NA   
+##  7 2020-10-23 Arka… Louisia… Away     Loss              1         3     4 NA   
+##  8 2020-11-19 Aubu… Tenness… Home     Loss              0         3     3 NA   
+##  9 2021-01-24 Bell… Western… Away     Loss              0         3     3 NA   
+## 10 2021-03-08 Belm… Jackson… Home     Loss              0         3     3 NA   
+## # … with 71 more rows, and 14 more variables: Kills &lt;dbl&gt;, Errors &lt;dbl&gt;, `Total
+## #   Attacks` &lt;dbl&gt;, `Hit Pct` &lt;dbl&gt;, Assists &lt;dbl&gt;, Aces &lt;dbl&gt;, SErr &lt;dbl&gt;,
+## #   Digs &lt;dbl&gt;, RErr &lt;dbl&gt;, `Block Solos` &lt;dbl&gt;, `Block Assists` &lt;dbl&gt;,
+## #   BErr &lt;dbl&gt;, PTS &lt;dbl&gt;, BHE &lt;dbl&gt;</code></pre>
+<div id="d1-teams" class="section level1">
+<h1>D1 Teams</h1>
+<p>Only looking at games that were played</p>
+<pre class="r"><code>AllD1Games &lt;- volleyballstats %&gt;%filter(is.na(Result) == FALSE)
+
+AllD1Teams &lt;- AllD1Games %&gt;% group_by(Team) %&gt;%
+  summarise(
+    total = n(),
+    totalKills = sum(Kills),
+    TotalAttacks = sum(`Total Attacks`),
+    maxKillRate = max(Kills / S),
+    aveKillRate = sum(Kills) / sum(`Total Attacks`)
+  )</code></pre>
+<pre class="r"><code>ggplot(AllD1Teams, aes(x=TotalAttacks, y=totalKills)) +
+  geom_point() + 
+  geom_smooth(method=&quot;lm&quot;) +
+  theme_light() +
+  labs(x=&quot;Total Attacks&quot;, y=&quot;Total Kills&quot;)</code></pre>
+<pre><code>## `geom_smooth()` using formula &#39;y ~ x&#39;</code></pre>
+<p><img src="http://haileyryerson.github.io/2021/04/01/hailey-ryerson-s-spmc-350-final-project/index_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
+<pre class="r"><code>AllD1Teams %&gt;% filter(TotalAttacks &gt; 2500) %&gt;% arrange(desc(TotalAttacks))</code></pre>
+<pre><code>## # A tibble: 16 x 6
+##    Team                    total totalKills TotalAttacks maxKillRate aveKillRate
+##    &lt;chr&gt;                   &lt;int&gt;      &lt;dbl&gt;        &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;
+##  1 Texas St. Bobcats          33       1600         4183        17.7       0.383
+##  2 Louisiana Ragin&#39; Cajuns    26       1213         3590        18         0.338
+##  3 UT Arlington Mavericks     23       1151         3535        17         0.326
+##  4 SFA Ladyjacks              24       1078         2949        15         0.366
+##  5 ULM Warhawks               23        751         2900        14.2       0.259
+##  6 Troy Trojans               21        976         2874        16.3       0.340
+##  7 Little Rock Trojans        20        917         2775        16.2       0.330
+##  8 Arkansas Razorbacks        20        969         2704        15.7       0.358
+##  9 Valparaiso Crusaders       15        843         2643        16.7       0.319
+## 10 Texas Tech Red Raiders     19        929         2603        16         0.357
+## 11 Georgia St. Panthers       20        873         2602        15.7       0.336
+## 12 Tarleton St. Texans        19        893         2583        16.7       0.346
+## 13 South Alabama Jaguars      22        879         2576        14         0.341
+## 14 Akron Zips                 16        787         2560        16         0.307
+## 15 Portland St. Vikings       16        838         2528        16.2       0.331
+## 16 Kansas St. Wildcats        18        946         2503        15.3       0.378</code></pre>
+<pre class="r"><code>AllD1Teams %&gt;% arrange(desc(aveKillRate))</code></pre>
+<pre><code>## # A tibble: 299 x 6
+##    Team                    total totalKills TotalAttacks maxKillRate aveKillRate
+##    &lt;chr&gt;                   &lt;int&gt;      &lt;dbl&gt;        &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;
+##  1 Kentucky Wildcats          16        785         1648        18         0.476
+##  2 Wisconsin Badgers          10        441          970        16         0.455
+##  3 New Mexico St. Aggies      12        612         1347        17.7       0.454
+##  4 Western Ky. Lady Toppe…    14        632         1394        16.7       0.453
+##  5 Jacksonville St. Gamec…    11        562         1252        17.7       0.449
+##  6 N.C. A&amp;T Aggies             9        379          847        15.7       0.447
+##  7 Dayton Flyers               8        430          967        17.8       0.445
+##  8 Louisville Cardinals       11        496         1120        16.2       0.443
+##  9 Georgia Tech Yellow Ja…    11        544         1231        18.3       0.442
+## 10 Texas Longhorns            19        958         2203        17.2       0.435
+## # … with 289 more rows</code></pre>
+<pre class="r"><code>top25TeamNames &lt;- read.csv(&quot;top25-teams.csv&quot;)
+
+Top25TeamGames &lt;- AllD1Games %&gt;% filter(Team %in% top25TeamNames$Team)
+
+Top25TeamGames &lt;- Top25TeamGames %&gt;% replace_na(list(Aces=0))
+
+Top25Teams &lt;- Top25TeamGames %&gt;% group_by(Team) %&gt;%
+  summarise(
+    total = n(),
+    totalAces = sum(Aces),
+    Totalserviceerrors = sum(`SErr`),
+    totalAcesErrorRate = sum(Aces) / sum(SErr)
+  )</code></pre>
+<pre class="r"><code>ggplot(Top25Teams, aes(x=reorder(Team,totalAces), weight=totalAces)) +
+  geom_bar() + 
+  theme_light() +
+  labs(x=&quot;Total team&quot;, y=&quot;Total Aces&quot;) + 
+  coord_flip()</code></pre>
+<p><img src="http://haileyryerson.github.io/2021/04/01/hailey-ryerson-s-spmc-350-final-project/index_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
+<pre class="r"><code>top5TeamNames &lt;- read.csv(&quot;top5-teams.csv&quot;)
+
+Top5TeamGames &lt;- AllD1Games %&gt;% filter(Team %in% top5TeamNames$Team)
+ 
+Top5TeamGames &lt;- Top5TeamGames %&gt;% replace_na(list(`Block Solos`=0))
+
+Top5Teams &lt;- Top5TeamGames %&gt;% group_by(Team) %&gt;%
+  summarise(
+    totalblocksolos = sum(`Block Solos`),
+    totalblockassists = sum(`Block Assists`)
+  )</code></pre>
+<p>Prepping for waffle plot</p>
+<pre class="r"><code>wis &lt;- Top5Teams %&gt;% filter(Team == &quot;Wisconsin Badgers&quot;)
+ken &lt;- Top5Teams %&gt;% filter(Team == &quot;Kentucky Wildcats&quot;)
+minn &lt;- Top5Teams %&gt;% filter(Team == &quot;Minnesota Golden Gophers&quot;)
+neb &lt;- Top5Teams %&gt;% filter(Team == &quot;Nebraska Cornhuskers&quot;)
+tex &lt;- Top5Teams %&gt;% filter(Team == &quot;Texas Longhorns&quot;)
+
+
+WisWaffle &lt;- c(&quot;Block Solos&quot;=wis$totalblocksolos, &quot;Block Assists&quot;=wis$totalblockassists)
+KenWaffle &lt;- c(&quot;Block Solos&quot;=ken$totalblocksolos, &quot;Block Assists&quot;=ken$totalblockassists)
+MinWaffle &lt;- c(&quot;Block Solos&quot;=minn$totalblocksolos, &quot;Block Assists&quot;=minn$totalblockassists)
+NebWaffle &lt;- c(&quot;Block Solos&quot;=neb$totalblocksolos, &quot;Block Assists&quot;=neb$totalblockassists)
+TexWaffle &lt;- c(&quot;Block Solos&quot;=tex$totalblocksolos, &quot;Block Assists&quot;=tex$totalblockassists)</code></pre>
+<pre class="r"><code>iron(
+waffle(
+        WisWaffle / 5, 
+        rows = 2, 
+        title=&quot;Wisconsin&#39;s Blocks&quot;, 
+        xlab=&quot;1 square = 5 blaock&quot;, 
+        colors = c(&quot;grey&quot;, &quot;red&quot;)
+),
+waffle(
+        KenWaffle / 5, 
+        rows = 2, 
+        title=&quot;Kentucky&#39;s Blocks&quot;, 
+        xlab=&quot;1 square = 1 blaock&quot;, 
+        colors = c(&quot;black&quot;, &quot;blue&quot;)
+),
+waffle(
+        MinWaffle / 5, 
+        rows = 2, 
+        title=&quot;Minnesota&#39;s Blocks&quot;, 
+        xlab=&quot;1 square = 1 blaock&quot;, 
+        colors = c(&quot;black&quot;, &quot;purple&quot;)
+),
+waffle(
+        TexWaffle / 10, 
+        rows = 2, 
+        title=&quot;Texas&#39;s Blocks&quot;, 
+        xlab=&quot;1 square = 10 blaock&quot;, 
+        colors = c(&quot;black&quot;, &quot;orange&quot;)
+),
+waffle(
+        NebWaffle / 5, 
+        rows = 2, 
+        title=&quot;Nebraska&#39;s Blocks&quot;, 
+        xlab=&quot;1 square = 1 blaock&quot;, 
+        colors = c(&quot;black&quot;, &quot;red&quot;)
+)
+)</code></pre>
+<p><img src="http://haileyryerson.github.io/2021/04/01/hailey-ryerson-s-spmc-350-final-project/index_files/figure-html/wafflePlot-1.png" width="672" /></p>
+</div>
+
+    </div>
+  </article>
+
+  
+
+
+</main>
+
+      <footer class="footer">
+        <ul class="footer-links">
+          <li>
+            <a href="/index.xml" type="application/rss+xml" target="_blank">RSS feed</a>
+          </li>
+          <li>
+            <a href="https://gohugo.io/" class="footer-links-kudos">Made with <img src="/images/hugo-logo.png" alt="Img link to Hugo website" width="22" height="22"></a>
+          </li>
+        </ul>
+      </footer>
+
+    </div>
+    
+
+
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+
+
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/r.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/yaml.min.js"></script>
+<script>hljs.configure({languages: []}); hljs.initHighlightingOnLoad();</script>
+
+
+
+    
+<script src="/js/math-code.js"></script>
+<script async src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+
+    
+  </body>
+</html>
+
