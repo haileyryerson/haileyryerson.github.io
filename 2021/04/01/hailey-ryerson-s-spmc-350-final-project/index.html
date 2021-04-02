@@ -6,8 +6,8 @@
 <meta name="generator" content="Hugo 0.81.0" />
 
 
-<title>Hailey Ryerson&#39;s SPMC 350 Final Project - Hailey Ryerson&#39;s Github Site</title>
-<meta property="og:title" content="Hailey Ryerson&#39;s SPMC 350 Final Project - Hailey Ryerson&#39;s Github Site">
+<title>Who will win the 2021 NCAA D1 Women’s Volleyball Tournament? - Hailey Ryerson&#39;s Github Site</title>
+<meta property="og:title" content="Who will win the 2021 NCAA D1 Women’s Volleyball Tournament? - Hailey Ryerson&#39;s Github Site">
 
 
   <link href='http://haileyryerson.github.io/favicon.ico' rel='icon' type='image/x-icon'/>
@@ -62,10 +62,10 @@
 
   <article class="article">
     
-    <span class="article-duration">5 min read</span>
+    <span class="article-duration">8 min read</span>
     
 
-    <h1 class="article-title">Hailey Ryerson&#39;s SPMC 350 Final Project</h1>
+    <h1 class="article-title">Who will win the 2021 NCAA D1 Women’s Volleyball Tournament?</h1>
 
     
     <span class="article-date">2021-04-01</span>
@@ -76,6 +76,9 @@
 <script src="http://haileyryerson.github.io/2021/04/01/hailey-ryerson-s-spmc-350-final-project/index_files/header-attrs/header-attrs.js"></script>
 
 
+<p>Note to the readers: this analysis was done during the week of March 29th rankings.</p>
+<p>With weeks away from the first serve, 48 teams will travel to the midwest as Omaha, Nebraska will host the entire tournament. The tournament will take place at CHI Health Center from April 14-24. Covid-19 cancellations or poseponents have played a big factor in this unique season.</p>
+<p>All eyes are on the Big Ten schools, as anyone of them could walk away with the trophy. Wisconsin, the 2019 runner-ups have been the front contender all this season. Leading the Badgers is 6-8 middle blocker Dana Rettke, along with All-American setter Sydney Hilley averaging 10.75 assists per set. However, just down the road of Omaha is your Nebraska Cornhuskers. Nebraska is fourth in the coaches’ poll and should earn one of the top-six seeds. Along with Kentucky, Minnesota, and Texas in the race as well.</p>
 <pre class="r"><code>library(tidyverse)</code></pre>
 <pre><code>## ── Attaching packages ─────────────────────────────────────── tidyverse 1.3.0 ──</code></pre>
 <pre><code>## ✓ ggplot2 3.3.3     ✓ purrr   0.3.4
@@ -124,9 +127,9 @@ volleyballstats &lt;- read_csv(&quot;volleyballgamelogs2020.csv&quot;)</code></p
 ## #   Attacks` &lt;dbl&gt;, `Hit Pct` &lt;dbl&gt;, Assists &lt;dbl&gt;, Aces &lt;dbl&gt;, SErr &lt;dbl&gt;,
 ## #   Digs &lt;dbl&gt;, RErr &lt;dbl&gt;, `Block Solos` &lt;dbl&gt;, `Block Assists` &lt;dbl&gt;,
 ## #   BErr &lt;dbl&gt;, PTS &lt;dbl&gt;, BHE &lt;dbl&gt;</code></pre>
-<div id="d1-teams" class="section level1">
-<h1>D1 Teams</h1>
-<p>Only looking at games that were played</p>
+<p>The one data set I’ll be working with is volleygamelogs from the current season from NCAA College Women’s Volleyball D1 Stats. I’m mostly going to rely on their current rankings and looking at kills, aces, and blocks.</p>
+<p>First thing is filtering out the games that didn’t play this season due to Covid-19.</p>
+<p>I’ll be only looking at D1 games that were played this season. For the first graph, I went with a scatter plot and what I’m looking for is how the total number of attacks and kills match-up. With all the D1 schools in this chart, kills are a general stat that everyone places a high-efficiency in.</p>
 <pre class="r"><code>AllD1Games &lt;- volleyballstats %&gt;%filter(is.na(Result) == FALSE)
 
 AllD1Teams &lt;- AllD1Games %&gt;% group_by(Team) %&gt;%
@@ -137,13 +140,15 @@ AllD1Teams &lt;- AllD1Games %&gt;% group_by(Team) %&gt;%
     maxKillRate = max(Kills / S),
     aveKillRate = sum(Kills) / sum(`Total Attacks`)
   )</code></pre>
+<p>The first question we’ll ask and answer is who has a high proficiency in kills with the highest average kill rate?</p>
 <pre class="r"><code>ggplot(AllD1Teams, aes(x=TotalAttacks, y=totalKills)) +
   geom_point() + 
   geom_smooth(method=&quot;lm&quot;) +
   theme_light() +
   labs(x=&quot;Total Attacks&quot;, y=&quot;Total Kills&quot;)</code></pre>
 <pre><code>## `geom_smooth()` using formula &#39;y ~ x&#39;</code></pre>
-<p><img src="http://haileyryerson.github.io/2021/04/01/hailey-ryerson-s-spmc-350-final-project/index_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
+<p><img src="http://haileyryerson.github.io/2021/04/01/hailey-ryerson-s-spmc-350-final-project/index_files/figure-html/unnamed-chunk-3-1.png" width="672" />
+I find this study to be very unique, as Texas leads the nation in kills but places 10th in average kill rate. Kentucky places second currently in kills but as the highest kill rate. When tournament play starts, competition is going to be at a faster rate with the expectation of more kills per set. That’s where Kentucky comes in, as they’ve been displaying that all season.</p>
 <pre class="r"><code>AllD1Teams %&gt;% filter(TotalAttacks &gt; 2500) %&gt;% arrange(desc(TotalAttacks))</code></pre>
 <pre><code>## # A tibble: 16 x 6
 ##    Team                    total totalKills TotalAttacks maxKillRate aveKillRate
@@ -179,6 +184,7 @@ AllD1Teams &lt;- AllD1Games %&gt;% group_by(Team) %&gt;%
 ##  9 Georgia Tech Yellow Ja…    11        544         1231        18.3       0.442
 ## 10 Texas Longhorns            19        958         2203        17.2       0.435
 ## # … with 289 more rows</code></pre>
+<p>Throughout this season, I’ve seen many service errors not just from Big Ten schools but other Power Five ones as well. What I’ve noticed is the teams that keep errors under five have had the most success. However, aces can help be the icing on the cake for winning a volleyball game. I will be looking at only the top 25 teams in coaches polls using a geom bar.</p>
 <pre class="r"><code>top25TeamNames &lt;- read.csv(&quot;top25-teams.csv&quot;)
 
 Top25TeamGames &lt;- AllD1Games %&gt;% filter(Team %in% top25TeamNames$Team)
@@ -197,7 +203,8 @@ Top25Teams &lt;- Top25TeamGames %&gt;% group_by(Team) %&gt;%
   theme_light() +
   labs(x=&quot;Total team&quot;, y=&quot;Total Aces&quot;) + 
   coord_flip()</code></pre>
-<p><img src="http://haileyryerson.github.io/2021/04/01/hailey-ryerson-s-spmc-350-final-project/index_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
+<p><img src="http://haileyryerson.github.io/2021/04/01/hailey-ryerson-s-spmc-350-final-project/index_files/figure-html/unnamed-chunk-6-1.png" width="672" />
+I’m not surprised Texas takes the ace category, but now let’s look at the Top 5 teams in the nation.</p>
 <pre class="r"><code>top5TeamNames &lt;- read.csv(&quot;top5-teams.csv&quot;)
 
 Top5TeamGames &lt;- AllD1Games %&gt;% filter(Team %in% top5TeamNames$Team)
@@ -209,7 +216,7 @@ Top5Teams &lt;- Top5TeamGames %&gt;% group_by(Team) %&gt;%
     totalblocksolos = sum(`Block Solos`),
     totalblockassists = sum(`Block Assists`)
   )</code></pre>
-<p>Prepping for waffle plot</p>
+<p>These 5 rankings have been flipped, switched, changed almost every week but remain the same 5 teams. For my final chart I’m looking at the top 5 team blocks using a waffle chart. Anyone of these teams could take the title in Omaha, however blocks seem to be one of most crucial stats in volleyball.</p>
 <pre class="r"><code>wis &lt;- Top5Teams %&gt;% filter(Team == &quot;Wisconsin Badgers&quot;)
 ken &lt;- Top5Teams %&gt;% filter(Team == &quot;Kentucky Wildcats&quot;)
 minn &lt;- Top5Teams %&gt;% filter(Team == &quot;Minnesota Golden Gophers&quot;)
@@ -259,8 +266,9 @@ waffle(
         colors = c(&quot;black&quot;, &quot;red&quot;)
 )
 )</code></pre>
-<p><img src="http://haileyryerson.github.io/2021/04/01/hailey-ryerson-s-spmc-350-final-project/index_files/figure-html/wafflePlot-1.png" width="672" /></p>
-</div>
+<p><img src="http://haileyryerson.github.io/2021/04/01/hailey-ryerson-s-spmc-350-final-project/index_files/figure-html/wafflePlot-1.png" width="672" />
+Texas has almost over 100 more blocks in assists than Minnesota. Brionne Butler’s defense is very hard to attack against, especially with her in the middle for Texas’ s offense.</p>
+<p>In conclusion, I think we’ll see Texas, Kentucky, Nebraska, and Wisconsin in the final four, with Texas and Kentucky in the finals. From this analysis, Texas has just dominated in kills, aces, and blocks. All three key components to winning a national championship.</p>
 
     </div>
   </article>

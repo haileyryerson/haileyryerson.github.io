@@ -8,12 +8,14 @@
     <language>en-us</language>
     <lastBuildDate>Thu, 01 Apr 2021 00:00:00 +0000</lastBuildDate><atom:link href="http://haileyryerson.github.io/post/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Hailey Ryerson&#39;s SPMC 350 Final Project</title>
+      <title>Who will win the 2021 NCAA D1 Women’s Volleyball Tournament?</title>
       <link>http://haileyryerson.github.io/2021/04/01/hailey-ryerson-s-spmc-350-final-project/</link>
       <pubDate>Thu, 01 Apr 2021 00:00:00 +0000</pubDate>
       
       <guid>http://haileyryerson.github.io/2021/04/01/hailey-ryerson-s-spmc-350-final-project/</guid>
-      <description>library(tidyverse) ## ── Attaching packages ─────────────────────────────────────── tidyverse 1.3.0 ── ## ✓ ggplot2 3.3.3 ✓ purrr 0.3.4 ## ✓ tibble 3.0.5 ✓ dplyr 1.0.3 ## ✓ tidyr 1.1.2 ✓ stringr 1.4.0 ## ✓ readr 1.4.0 ✓ forcats 0.5.0 ## ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ── ## x dplyr::filter() masks stats::filter() ## x dplyr::lag() masks stats::lag() library(ggplot2) library(waffle) volleyballstats &amp;lt;- read_csv(&amp;quot;volleyballgamelogs2020.csv&amp;quot;) ## ## ── Column specification ──────────────────────────────────────────────────────── ## cols( ## .default = col_double(), ## Date = col_date(format = &amp;quot;&amp;quot;), ## Team = col_character(), ## Opponent = col_character(), ## HomeAway = col_character(), ## Result = col_character(), ## MS = col_logical() ## ) ## ℹ Use `spec()` for the full column specifications.</description>
+      <description>Note to the readers: this analysis was done during the week of March 29th rankings.
+With weeks away from the first serve, 48 teams will travel to the midwest as Omaha, Nebraska will host the entire tournament. The tournament will take place at CHI Health Center from April 14-24. Covid-19 cancellations or poseponents have played a big factor in this unique season.
+All eyes are on the Big Ten schools, as anyone of them could walk away with the trophy.</description>
     </item>
     
   </channel>
