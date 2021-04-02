@@ -90,6 +90,7 @@
 ## x dplyr::lag()    masks stats::lag()</code></pre>
 <pre class="r"><code>library(ggplot2)
 library(waffle)
+library(ggrepel)
 
 volleyballstats &lt;- read_csv(&quot;volleyballgamelogs2020.csv&quot;)</code></pre>
 <pre><code>## 
@@ -147,7 +148,18 @@ AllD1Teams &lt;- AllD1Games %&gt;% group_by(Team) %&gt;%
   theme_light() +
   labs(x=&quot;Total Attacks&quot;, y=&quot;Total Kills&quot;)</code></pre>
 <pre><code>## `geom_smooth()` using formula &#39;y ~ x&#39;</code></pre>
-<p><img src="http://haileyryerson.github.io/2021/04/01/hailey-ryerson-s-spmc-350-final-project/index_files/figure-html/unnamed-chunk-3-1.png" width="672" />
+<p><img src="http://haileyryerson.github.io/2021/04/01/hailey-ryerson-s-spmc-350-final-project/index_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
+<pre class="r"><code>ggplot(AllD1Teams, aes(x=TotalAttacks, y=totalKills)) +
+  geom_point(color=&quot;grey&quot;) + 
+  geom_smooth(method=lm, se=FALSE) +
+  theme_light() +
+  labs(x=&quot;Total Attacks&quot;, y=&quot;Total Kills&quot;, title = &quot;Texas significantly leads the NCAA in kills but Kentucky takes the average kill rate&quot;, subtitle = &quot;Texas has almost over 200 more kills than the rest of D1 teams, however, Kentucky averages 15 kills per set with Alli Stumler and Avery Skinner behind it.&quot;, caption=&quot;Souce: NCAA | By: Hailey Ryerson&quot;) +
+  theme_minimal() +
+  theme(
+    plot.title = element_text(size = 16, face = &quot;bold&quot;)
+    ) </code></pre>
+<pre><code>## `geom_smooth()` using formula &#39;y ~ x&#39;</code></pre>
+<p><img src="http://haileyryerson.github.io/2021/04/01/hailey-ryerson-s-spmc-350-final-project/index_files/figure-html/unnamed-chunk-4-1.png" width="672" />
 I find this study to be very unique, as Texas leads the nation in kills but places 10th in average kill rate. Kentucky places second currently in kills but as the highest kill rate. When tournament play starts, competition is going to be at a faster rate with the expectation of more kills per set. That’s where Kentucky comes in, as they’ve been displaying that all season.</p>
 <pre class="r"><code>AllD1Teams %&gt;% filter(TotalAttacks &gt; 2500) %&gt;% arrange(desc(TotalAttacks))</code></pre>
 <pre><code>## # A tibble: 16 x 6
@@ -203,7 +215,7 @@ Top25Teams &lt;- Top25TeamGames %&gt;% group_by(Team) %&gt;%
   theme_light() +
   labs(x=&quot;Total team&quot;, y=&quot;Total Aces&quot;) + 
   coord_flip()</code></pre>
-<p><img src="http://haileyryerson.github.io/2021/04/01/hailey-ryerson-s-spmc-350-final-project/index_files/figure-html/unnamed-chunk-6-1.png" width="672" />
+<p><img src="http://haileyryerson.github.io/2021/04/01/hailey-ryerson-s-spmc-350-final-project/index_files/figure-html/unnamed-chunk-7-1.png" width="672" />
 I’m not surprised Texas takes the ace category, but now let’s look at the Top 5 teams in the nation.</p>
 <pre class="r"><code>top5TeamNames &lt;- read.csv(&quot;top5-teams.csv&quot;)
 
