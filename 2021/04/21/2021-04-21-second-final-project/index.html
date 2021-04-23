@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Hugo 0.81.0" />
+
+
+<title>How is Paige Bueckers changing women’s basketball? - Hailey Ryerson&#39;s Github Site</title>
+<meta property="og:title" content="How is Paige Bueckers changing women’s basketball? - Hailey Ryerson&#39;s Github Site">
+
+
+  <link href='http://haileyryerson.github.io/favicon.ico' rel='icon' type='image/x-icon'/>
+
+
+
+  
+
+
+
+
+
+
+
+
+<link href='//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css' rel='stylesheet' type='text/css' />
+
+
+
+<link rel="stylesheet" href="/css/fonts.css" media="all">
+<link rel="stylesheet" href="/css/main.css" media="all">
+
+
+
+  </head>
+  <body>
+    <div class="wrapper">
+      <header class="header">
+        <nav class="nav">
+  <a href="/" class="nav-logo">
+    <img src="/images/logo.png"
+         width="50"
+         height="50"
+         alt="Logo">
+  </a>
+
+  <ul class="nav-links">
+    
+    <li><a href="/about/">About</a></li>
+    
+    <li><a href="https://github.com/haileyryerson">GitHub</a></li>
+    
+    <li><a href="https://twitter.com/HaileyRyerson">Twitter</a></li>
+    
+  </ul>
+</nav>
+
+      </header>
+
+
+<main class="content" role="main">
+
+  <article class="article">
+    
+    <span class="article-duration">5 min read</span>
+    
+
+    <h1 class="article-title">How is Paige Bueckers changing women’s basketball?</h1>
+
+    
+    <span class="article-date">2021-04-21</span>
+    
+
+    <div class="article-content">
+      
+<script src="http://haileyryerson.github.io/2021/04/21/2021-04-21-second-final-project/index_files/header-attrs/header-attrs.js"></script>
+
+
+<p>Paige Bueckers made history this past season, becoming the first freshman to win the Associated Press’s Player of the Year award and exceeding the expectations of everyone in the country, including head coach of UConn Geno Auriemma. Every player who has come through the Huskies program has been exceptional, but Bueckers took on a leadership role the first couple of games of her collegiate career. She was the first UConn player to score 30+ in three consecutive games and most points scored by a UConn player.</p>
+<p>Then you have the awards, many of them. First-team All-American, Big East player of the year, and the big one, AP Player of the Year, and that’s not all of them. Paige’s ability to control the game at a high-speed level makes her as fearsome as mesmerizing. There’s a reason why women’s college basketball rankings have been at an all-time high this year, and a lot of it has to do with the All-American freshman.</p>
+<pre class="r"><code>library(tidyverse)</code></pre>
+<pre><code>## ── Attaching packages ─────────────────────────────────────── tidyverse 1.3.0 ──</code></pre>
+<pre><code>## ✓ ggplot2 3.3.3     ✓ purrr   0.3.4
+## ✓ tibble  3.0.5     ✓ dplyr   1.0.3
+## ✓ tidyr   1.1.2     ✓ stringr 1.4.0
+## ✓ readr   1.4.0     ✓ forcats 0.5.0</code></pre>
+<pre><code>## ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+## x dplyr::filter() masks stats::filter()
+## x dplyr::lag()    masks stats::lag()</code></pre>
+<pre class="r"><code>library(ggplot2)
+library(waffle)</code></pre>
+<p>The data sets I’ll be working with are from University of Connecticut Athletics Women’s Basketball stats, University of Iowa Athletics Women’s Basketball stats, University of Delaware Athletics Women’s Basketball stats, University of Oregon Athletics Women’s Basketball stats, and NCAA Women’s Basketball Championship History.</p>
+<pre class="r"><code>pastplayersstats &lt;- read_csv(&quot;PastGreatsFreshmanStats.csv&quot;)</code></pre>
+<pre><code>## 
+## ── Column specification ────────────────────────────────────────────────────────
+## cols(
+##   Name = col_character(),
+##   FreshmanTotalPts = col_double(),
+##   FreshmanPPG = col_double()
+## )</code></pre>
+<pre class="r"><code>pastplayersstats %&gt;% 
+  pivot_longer(
+    cols=starts_with(&quot;Freshman&quot;), 
+    names_to=&quot;Type&quot;, 
+    values_to=&quot;Points&quot;) -&gt; pastplayerpoints</code></pre>
+<pre class="r"><code>ggplot(pastplayerpoints, aes(x=reorder(Name,Points), weight=Points, fill=Type)) + 
+  geom_bar() + 
+  coord_flip()</code></pre>
+<p><img src="http://haileyryerson.github.io/2021/04/21/2021-04-21-second-final-project/index_files/figure-html/unnamed-chunk-4-1.png" width="672" />
+For my first chart, I wanted to look at how Paige compared to other greats their freshman year in points scored. I pulled data from Oregon, Delaware, and where most women came from, UConn.</p>
+<pre class="r"><code>ggplot(pastplayersstats, aes(x=reorder(Name,FreshmanTotalPts), weight=FreshmanTotalPts)) + 
+  geom_bar(fill=&quot;red&quot;) +
+  ylab(&quot;Total Freshman Points&quot;) +
+  xlab(&quot;Player&quot;) +
+  labs(title=&quot; Bueckers is straight middle in points.&quot;, subtitle = &quot;Elena Delle Donne leads with 781 points scored.&quot;) +
+  coord_flip()</code></pre>
+<p><img src="http://haileyryerson.github.io/2021/04/21/2021-04-21-second-final-project/index_files/figure-html/unnamed-chunk-5-1.png" width="672" />
+Paige is straight in the middle of the all-star team for freshman year. However, points aren’t the only stat she ranks high in that makes her one of the best players in the nation. Her ability to see the court and make hard passes look easy sets her apart from everyone. The 11 championships were won by talents like Bird, Taurasi Moore, and Stewart - who combine for 13 WNBA championships. However, none were asked to step up as a freshman and do what Bueckers did for the Huskies this season with zero seniors.</p>
+<pre class="r"><code>championByYear &lt;- read.csv(&quot;teamChamptionsByYear.csv&quot;)</code></pre>
+<pre class="r"><code>championByYear$Win &lt;- 1
+
+allChampions &lt;- data.frame(Team=unique(championByYear$Team))
+allYears &lt;- data.frame(Year=championByYear$Year)
+allChampionYears &lt;- merge(allChampions, allYears, all=TRUE)
+
+allChampionsByYear&lt;-merge(championByYear, allChampionYears, all = TRUE, by=c(&quot;Team&quot;, &quot;Year&quot;))
+allChampionsByYear &lt;- allChampionsByYear %&gt;% replace_na(list(Win=0))</code></pre>
+<pre class="r"><code>allChampsCumWins &lt;- allChampionsByYear %&gt;% group_by(Team) %&gt;% arrange(Year) %&gt;% mutate(cumWins = cumsum(Win))</code></pre>
+<pre class="r"><code>ggplot() + geom_step(data=allChampsCumWins, aes(x=Year, y=cumWins, group=Team, color=Team))</code></pre>
+<p><img src="http://haileyryerson.github.io/2021/04/21/2021-04-21-second-final-project/index_files/figure-html/unnamed-chunk-9-1.png" width="672" />
+For my second chart, I wanted to look at Coach Aurienmma’s history at UConn and the legends that have played for him. What makes UConn the best basketball school in women’s basketball? For this step chart, I had to get all the years and champions and create a new data frame from NCAA Women’s Basketball Championship History that contains all the years’ champions. Then merging that impressive list with the winner list and all non-winners will be added with NA in the win. Lastly, I had to add a cumulative win to the date frame and sort by year.</p>
+<pre class="r"><code>uc &lt;- allChampsCumWins %&gt;% filter(Team == &quot;Connecticut&quot;)
+
+ggplot() +
+  labs(title=&quot; UConn continues to dominate women&#39;s basketball.&quot;, subtitle = &quot; Coach Gene Auriemma enters his 36th year with the Huskies.&quot;) +
+  geom_step(data=allChampsCumWins, aes(x=Year, y=cumWins, group=Team), color=&quot;grey&quot;) +
+  geom_step(data=uc, aes(x=Year, y=cumWins, group=Team), color=&quot;blue&quot;) +
+    annotate(&quot;text&quot;, x=2010, y=9, label=&quot;Connecticut&quot;)</code></pre>
+<p><img src="http://haileyryerson.github.io/2021/04/21/2021-04-21-second-final-project/index_files/figure-html/unnamed-chunk-10-1.png" width="672" />
+There is a clear distinction of UConn’s past championship history compared to everyone else. Coach Auriemma has 11 national championships, and no one in the collegiate basketball ranks, men’s or women’s, has won more titles than Coach Auriemma. With Buckers having three more years with the Huskies, I think we’re going to be seeing a couple more titles added to his resume.</p>
+<p>For my last chart, I chose a waffle chart to look at the two best freshman players in the nation, Caitlin Clark and Paige Bueckers. For the sweet 16 for the women’s basketball championship, the No.1 UConn vs. No. 4 Iowa saw an increase of 66% for viewership. The UConn vs. Iowa game drew in 1.6 million viewers, being the second-most viewed Sweet 16 game in history from USA Today.</p>
+<p>I wanted to look at field goals made between field goals missed by the two athletes. I used University of Iowa and Connecticut Women’s Basketball stats to compare the two. Note: these two stats don’t tell the whole story. I chose field goals because both get most of their points in the mid-field range.</p>
+<pre class="r"><code>paigevscaitlin &lt;- read.csv(&quot;PaigevsCaitlin.csv&quot;)
+
+paige &lt;- paigevscaitlin %&gt;% filter(Name==&quot;Paige Bueckers&quot;)
+caitlin &lt;- paigevscaitlin %&gt;% filter(Name==&quot;Caitlin Clark&quot;)
+
+pb &lt;- c(&quot;Field Goals Made&quot;=paige$FGMade, &quot;Field Goals Missed&quot;=paige$FGMiss)
+cc &lt;- c(&quot;Field Goals Made&quot;=caitlin$FGMade, &quot;Field Goals Missed&quot;=caitlin$FGMiss)
+
+iron(
+waffle(
+        pb / 15, 
+        rows = 2, 
+        title=&quot;Paige Bueckers&#39;s FG&quot;, 
+        xlab=&quot;1 square = 15 Field Goal Attempts&quot;, 
+        colors = c(&quot;grey&quot;, &quot;blue&quot;)
+),
+waffle(
+        cc / 15, 
+        rows = 2, 
+        title=&quot;Caitlin Clark&#39;s FG&quot;, 
+        xlab=&quot;1 square = 15 Field Goal Attempts&quot;, 
+        colors = c(&quot;black&quot;, &quot;yellow&quot;)
+)
+)</code></pre>
+<p><img src="http://haileyryerson.github.io/2021/04/21/2021-04-21-second-final-project/index_files/figure-html/unnamed-chunk-11-1.png" width="672" />
+In conclusion, Paige certainly could’ve been the No.1 pick for the draft this year and has enough talent to make an impact in the WNBA. For WNBA, you have to be 22 years old or complete your four years of eligibility to declare the draft. Until that time, we can expect Paige to continue to change the way women’s basketball is viewed and have an extraordinary career at UConn.</p>
+
+    </div>
+  </article>
+
+  
+
+
+</main>
+
+      <footer class="footer">
+        <ul class="footer-links">
+          <li>
+            <a href="/index.xml" type="application/rss+xml" target="_blank">RSS feed</a>
+          </li>
+          <li>
+            <a href="https://gohugo.io/" class="footer-links-kudos">Made with <img src="/images/hugo-logo.png" alt="Img link to Hugo website" width="22" height="22"></a>
+          </li>
+        </ul>
+      </footer>
+
+    </div>
+    
+
+
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+
+
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/r.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/yaml.min.js"></script>
+<script>hljs.configure({languages: []}); hljs.initHighlightingOnLoad();</script>
+
+
+
+    
+<script src="/js/math-code.js"></script>
+<script async src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+
+    
+  </body>
+</html>
+
